@@ -1,9 +1,9 @@
-/*#time {*/
-    /*color: #000000;*/
-/*}*/
+#time {
+    color: #000000;
+}
 
 #footer {
-    padding-bottom: 10px;
+    padding-bottom: 2%;
 }
 
 .question_details{
