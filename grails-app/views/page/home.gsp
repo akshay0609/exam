@@ -9,12 +9,35 @@
 <html>
 <head>
     <title>Speed test</title>
-    <g:render template="js_and_cs"/>
+
+    <meta name="layout" content="layout1"/>
+
 </head>
 <body>
-    <g:render template="/page/headerDetails"/>
+    <script src="<%=request.contextPath%>/js/home.js"></script>
     <g:render template="flash_message" />
-    <g:render template="/page/testQuestion"/>
-    <g:render template="/page/footerDetails"/>
+
+    <div class="container">
+        <div class="row">
+            <div class="section">
+                <div class="section">
+                    <div class="section">
+
+                        <div class="col s2 m3 l2">
+                            <g:render template="/page/questionLists"/>
+                        </div>
+
+                        <div class="col s12 m9 l9">
+                            <div class="row">
+                                <g:render template="/page/question"/>
+                                </div>
+                            </div> <!-- end row -->
+                        </div><!-- end col s12 m9 l9 -->
+
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end row -->
+    </div> <!-- end container -->
 </body>
 </html>
