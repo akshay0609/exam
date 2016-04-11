@@ -1,7 +1,6 @@
 package testdemo
 
 import grails.converters.JSON
-import groovy.json.JsonSlurper
 
 class PageController {
     //Initialize variables
@@ -15,6 +14,9 @@ class PageController {
                      [question: "How do you list the routes of a Rails application?",option1: "rails show paths" ,option2: "rake routes",option3: "rails generate:routes",option4:"rake router:path",ans:"option2"],
                      [question: "How do you list the routes of a Rails application?",option1: "Repository",option2: "None of the answers are correct" ,option3: "ActiveRecord" ,option4:"DataMapper",ans:"option3"],
                      [question: "The method Initialize within a class is always:",option1: "private" ,option2: "public" ,option3: "default" ,option4:"protected",ans:"option2"]]
+    def userAnswer = [:]
+    def radioOptions = [:]
+    def result = [:]
 
     def index() { }
     def login() {}
@@ -36,14 +38,56 @@ class PageController {
     /*
     * send questions to UI
     * */
-    def send_questions() {
-        int count = params.count.toInteger()
+    def sendQuestions() {
+        int questionIndex = params.count.toInteger()
 
-        def data = ["key": questions[count]] as JSON
+        def data = ["key": questions[questionIndex]] as JSON
         render data
     }
 
-    def check_answer() {
+    def checkAnswer() {
+        int questionIndex = params.count.toInteger()
+        if (questions[questionIndex].ans == params.option) {
+            userAnswer[questionIndex] = 1
+            radioOptions[questionIndex] = params.option
+            render 'write answer'
+        } else {
+            userAnswer[questionIndex] = 0
+            radioOptions[questionIndex] = params.option
+            render 'wrong answer'
+        }
+    }
+
+    def sendOptionForRadio() {
+        int questionIndex = params.questionIndex.toInteger()
+        render radioOptions[questionIndex]
+    }
+
+    def result() {
+
+        int sum =  userAnswer.values().sum()
+        def percentage = (sum/10)*100  //calculate percentage
+
+        /*Count for correct and wrong answers*/
+        int correctAnswerCount = userAnswer.values().count {it==1}
+        int wrongAnswerCount = userAnswer.values().count {it==0}
+
+        /*Question and answer details*/
+        def questionsAnswers = []
+        questionsAnswers = (0..9).collect{
+            data = [questions: questions[it].question,
+                    correctAnswer: questions[it].(questions[it].ans),
+                    wrong_answer: userAnswer[it] == 0?  questions[it].(radioOptions(it)) : null]
+            data as JSON
+        }
+
+        def data = ["key": [correctAnswerCount:correctAnswerCount,
+                            wrongAnswerCount:wrongAnswerCount,
+                            questionsAnswers:questionsAnswers,
+                            percentage:percentage]
+                    ] as JSON
+
+        render data
 
     }
 }

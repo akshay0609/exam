@@ -1,0 +1,13 @@
+#result, #percentage {
+    padding-left: 2%;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+#canvas-holder {
+    margin-top: 5%;
+}
+
+.add_border {
+    border-left: solid 5px red;
+}

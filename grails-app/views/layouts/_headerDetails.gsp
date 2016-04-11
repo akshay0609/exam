@@ -1,5 +1,5 @@
 <div class="header">
-    <nav class="pink">
+    <nav class="pink darken-2">
         <div class="container">
             <div class="nav-wrapper">
                 <div class="col s12">
@@ -16,12 +16,12 @@
                         <li><a href="login" class=" center pink white-text">Logout</a> </li>
                     </ul>
 
-                    <ul class="side-nav" id="mobile-demo">
+                    <ul class="side-nav white" id="mobile-demo">
                         <li><a href="#" class="waves-effect waves-teal flow-text center-align">Home</a></li>
                         <li><div class="divider"></div></li>
                         <li><a href="#" class="waves-effect waves-teal flow-text center-align">Test</a></li>
                         <li><div class="divider"></div></li>
-                        <li><a href="#" class="waves-effect waves-teal flow-text center-align authentication" style="display:none">Akshay</a></li>
+                        <li><a href="#" class="waves-effect waves-teal flow-text center-align authentication" style="display:none">Log out</a></li>
                     </ul>
                 </div>
             </div>

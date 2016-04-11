@@ -49,39 +49,39 @@
 }
 
 .option {
-    padding-bottom: 4%;
+    padding-bottom: -4%;
     font-weight: bolder;
 }
 
-/*.list_questions {*/
-    /*padding: 10px;*/
-    /*color: #000000;*/
-/*}*/
+.card {
+    margin-left: 4%;
+    margin-bottom: -15%;
+}
 
-/*.question {*/
-    /*padding-bottom: 5%;*/
-/*}*/
+.subject_time {
+    padding-top: 3%;
+}
 
-/*.question a:link {*/
-    /*color: #000000;*/
-/*}*/
+@media screen and (device-width: 360px) {
 
-/*.question a:visited {*/
-    /*background-color: #000000;*/
-/*}*/
+    .card {
+        /*padding-bottom: 48%;*/
+        margin: 0 2% 0;
+    }
 
-/*.question a:hover {*/
-    /*color: #ffffff;*/
-    /*display: block;*/
-    /*background-color: #000000;*/
-/*}*/
+    #next,#previous,#submit_test {
+        margin-bottom: 5%;
+    }
+}
 
-/*.question a:active {*/
-    /*background-color: red;*/
-/*}*/
+@media screen  and ( device-width: 768px)  {
 
-/*.link_question {*/
- /*background-color: black;*/
- /*display:block;*/
- /*color:#ffffff;*/
-/*}*/
+    .card {
+        /*padding-bottom: 4%;*/
+        margin: 3% 2% 0;
+    }
+
+    #next,#previous,#submit_test {
+        margin-bottom: -10%;
+    }
+}

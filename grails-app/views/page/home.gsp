@@ -9,8 +9,8 @@
 <html>
 <head>
     <title>Speed test</title>
-
     <meta name="layout" content="layout1"/>
+
 
 </head>
 <body>
@@ -22,22 +22,22 @@
             <div class="section">
                 <div class="section">
                     <div class="section">
-
                         <div class="col s2 m3 l2">
                             <g:render template="/page/questionLists"/>
                         </div>
 
-                        <div class="col s12 m9 l9">
+                        <div class="col s12 m12 l9 ">
                             <div class="row">
                                 <g:render template="/page/question"/>
-                                </div>
                             </div> <!-- end row -->
-                        </div><!-- end col s12 m9 l9 -->
+                        </div><!-- end col s12 m12 l9 -->
 
                     </div>
                 </div>
             </div>
         </div> <!-- end row -->
     </div> <!-- end container -->
+
+
 </body>
 </html>

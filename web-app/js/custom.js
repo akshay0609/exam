@@ -10,13 +10,6 @@ $(function(){
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/testDemo/page/home",
-            //data: {
-            //    "userName": $("#uname").val(), "emailId": $("#emailId").val(),
-            //    "mNum": $("#mNum").val(), "movie": $("#movie").val(),
-            //    "date": $("#date").val(), "time": $("#time").val(),
-            //    "qty": $("#qty").val(), "dtime": $("#timeId").val()
-            //},
-            //cache: false,
             success: function (data) {
                 console.log(data)
             }
