@@ -12,5 +12,5 @@
         <li class="question"><a class="collection-item " id="9" href="#">Question 10</a></li>
         %{--<li class="question"><a id="1" href="#">Question 2</a></li>--}%
     </ul>
-    <a class="submit_test btn btn-large blue center-align waves-effect waves-teal" style="width: 98%">Submit_test</a>
+    <a href="result" class="submit_test btn btn-large blue center-align waves-effect waves-teal" style="width: 98%">Submit_test</a>
 </div>

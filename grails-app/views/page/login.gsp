@@ -11,7 +11,9 @@
     <title>Speed test</title>
     <meta name="layout" content="layout1">
 </head>
+
 <body>
+
     <div class="container">
         <g:render template="flash_message"/>
 
@@ -24,47 +26,48 @@
                     </div>
                     <div class="divider"></div>
                         <div class="section">
-                            <form id="formid" action="#">
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">account_circle</i>
-                                    <input type="text" id="first_name" autocomplete="off" class="validate">
+                            <form class="formValidate" id="formValidate" method="get" action="createUser" novalidate="novalidate">
+
+                                <div class="input-field col s5">
                                     <label for="first_name">First name</label>
+                                    <input type="text" id="first_name" class="validate" name="first_name" data-error=".errorTxt111">
+                                    <div class="errorTxt111"></div>
                                 </div>
 
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">account_circle</i>
-                                    <input type="text" id="last_name" class="validate">
+                                <div class="input-field col s5">
                                     <label for="last_name">Last name</label>
+                                    <input type="text" id="last_name" class="validate" name="last_name" data-error=".errorTxt211">
+                                    <div class="errorTxt211"></div>
                                 </div>
 
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">email</i>
-                                    <input type="email" id="email" class="validate">
-                                    <label for="email">Email</label>
+                                    <label for="uname" class="">Username*</label>
+                                    <input id="uname" name="uname" type="text" data-error=".errorTxt1">
+                                    <div class="errorTxt1"></div>
                                 </div>
 
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">account_circle</i>
-                                    <input type="text" id="username" autocomplete="off" class="validate">
-                                    <label for="username">User name</label>
+                                    <label for="cemail" class="">E-Mail *</label>
+                                    <input id="cemail" type="email" name="cemail" data-error=".errorTxt2">
+                                    <div class="errorTxt2"></div>
                                 </div>
 
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">https</i>
-                                    <input type="password" id="password" class="validate">
-                                    <label for="password">Password</label>
+                                    <label for="password">Password *</label>
+                                    <input id="password" type="password" name="password" data-error=".errorTxt3">
+                                    <div class="errorTxt3"></div>
                                 </div>
-
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">https</i>
-                                    <input type="password" id="confirm_password" class="validate">
-                                    <label for="confirm_password">Confirm Password</label>
+                                    <label for="cpassword">Confirm Password *</label>
+                                    <input id="cpassword" type="password" name="cpassword" data-error=".errorTxt4">
+                                    <div class="errorTxt4"></div>
                                 </div>
 
                                 <div class="section">
                                     <input type="submit" class="col s12 m4 l4 offset-m4 offset-l4 btn red" value="Register">
                                 </div>
                             </form>
+
                         </div>
                     </div>
             </div><!-- end Register form -->
@@ -72,7 +75,7 @@
             <!-- login form-->
             <div class="col s12 m4 l4">
                 <div class="container">
-                    <form method="get" action="account_validation">
+                    <form method="get" action="accountValidation">
 
                         <div class="section" style="padding-bottom: 10%">
                             <h4 class="center-align">Login</h4>
@@ -100,6 +103,7 @@
          </div> <!-- end row -->
     </div> <!-- end container-->
 
+<script src="<%=request.contextPath %>/js/formValidation.js"></script>
 
 
 </body>

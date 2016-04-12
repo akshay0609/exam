@@ -4,6 +4,7 @@ $(document).ready(function () {
     ajaxCall(count)
     question = questionListCss(question)
     $(".authentication").css({"display":""})
+    $(".a").prop("disabled",true);
 
     $("#next").click(function(){
         count++;
@@ -26,7 +27,8 @@ $(document).ready(function () {
 
     $('.question a').click(function(evt) {
 
-        $(".options").prop("checked",false)
+        $(".options").prop("checked",false);
+        $(".submit_test").prop("disabled",false);
         evt.preventDefault();
         $("#" + question).removeClass("active pink z-depth-4")
         var questionId = $(this).attr("id");
@@ -66,14 +68,14 @@ $(document).ready(function () {
     });
 
     //Result
-    $('.submit_test').click(function(){
-        $.ajax({
-          url: 'result',
-          success: function(data) {
-            console.log(data + "%")
-          }
-        });
-    });
+    //$('.submit_test').click(function(){
+    //    $.ajax({
+    //      url: 'result',
+    //      success: function(data) {
+    //        console.log(data + "%")
+    //      }
+    //    });
+    //});
 
 });
 

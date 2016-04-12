@@ -7,9 +7,12 @@
 <link href="http://fonts.googleapis.com/css?family=Roboto" rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="<%=request.contextPath %>/css/custom.css" type="text/css">
 
+%{--<link href="<%=request.contextPath %>/fonts/robots/*">--}%
+
 <!-- Compiled and minified JavaScript -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="<%=request.contextPath %>/js/materialize.min.js"></script>
 <script src="<%=request.contextPath %>/js/jquery.countdown.js"></script>

@@ -1,37 +1,3 @@
-%{--<div class="question_details">--}%
-    %{--<div class="question-header">--}%
-        %{--Subject:---}%
-        %{--<span class="subject">Ruby on Rails</span>--}%
-        %{--<span class="time">Time: <time id="time" style="color: #000000;">1:00:00</time></span>--}%
-    %{--</div><!-- end question_header -->--}%
-    %{--<div class="question_body">--}%
-
-        %{--<span class="question" id="question">What is ROR</span>--}%
-        %{--<div class="test_answers">--}%
-            %{--<input type="radio" name="answer" id="id1" class="options"  />--}%
-            %{--<label for="id1"  id="option1">Ruby on Rails</label> </br>--}%
-
-            %{--<input type="radio" name="answer" id="id2" class="options"/>--}%
-            %{--<label for="id2" id="option2">Rails on Ruby</label></br>--}%
-
-            %{--<input type="radio" name="answer" id="id3" class="options"/>--}%
-            %{--<label for="id3" id="option3">Ruby on Ruby</label> </br>--}%
-
-            %{--<input type="radio" name="answer" id="id4" class="options"/>--}%
-            %{--<label for="id4" id="option4"> Rails on Rails </label></br>--}%
-        %{--</div>--}%
-
-        %{--<div class="section">--}%
-            %{--<div id="submit_button">--}%
-                   %{--<span><input type="submit" class="btn" value="Submit" name="Submit"></span>--}%
-                %{--<span><input type="button" class="right btn col s12 m3 offset-m1 l3 offset-l1 " id="next" value="next" name="Next"></span>--}%
-                %{--<span><input type="button" class="right btn col s12 m3 l3" id="previous" value="Previous" name="Previous"></span>--}%
-            %{--</div>--}%
-        %{--</div>--}%
-    %{--</div><!-- end question -->--}%
-%{--</div> <!-- end question_details -->--}%
-
-
 <div class="card">
     <div class="card-title">
         <div class="row">
@@ -73,7 +39,7 @@
                     <div class="right col s12 m10 offset-m1 l10 offset-l1">
                         <span><input type="button" class="btn-large col s12 m3 offset-m1 l4 offset-l2 " id="previous" value="previous" name="Previous"></span>
                         <span><input type="button" class=" btn-large col s12 m3 offset-m1 l4 offset-l1 " id="next" value="next" name="Next"></span>
-                        <span><input type="button" class="submit_test hide-on-large-only btn-large col s12 m3 offset-m1 blue" id="submit_test" value="submit_test" name="submit_test"></span>
+                        <span><a href="result"><input type="button" class="submit_test hide-on-large-only btn-large col s12 m3 offset-m1 blue" id="submit_test" value="submit_test" name="submit_test"></a></span>
                     </div>
                 </div>
             </div>

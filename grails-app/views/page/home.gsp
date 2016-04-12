@@ -31,7 +31,6 @@
                                 <g:render template="/page/question"/>
                             </div> <!-- end row -->
                         </div><!-- end col s12 m12 l9 -->
-
                     </div>
                 </div>
             </div>

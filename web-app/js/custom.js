@@ -19,4 +19,7 @@ $(function(){
     $("#formid").ajaxForm(function(){
        alert("Thanks you")
     });
+
+    $('.tooltipped').tooltip({delay: 50});
+
 });

@@ -17,18 +17,28 @@ class PageController {
     def userAnswer = [:]
     def radioOptions = [:]
     def result = [:]
+    def userInfo = [akshay:[fname:"Akshay", lname:"Sharma", email:"akshay.sharma@krixi.in", password:"123456"]]
 
+    def userName = ""
     def index() { }
     def login() {}
-    def home() {}
+    def test() {}
+
+    def home() {
+        userAnswer = [:]
+        radioOptions = [:]
+        result = [:]
+    }
+
 
     /**
      * Check authorize user
-     * */
-    def account_validation() {
-         if (params.username == 'Akshay' && params.password == 'Akshay') {
+     */
+    def accountValidation() {
+         if (userInfo[params.username].(password) == params.password) {
             flash.message = "Welcome to test.com"
-            redirect(action: 'home')
+            userName = userInfo[params.username].(fname)
+            redirect(action: 'home', params: [name: userName])
          } else {
             flash.message = "Username or Password is invalid"
             redirect(action: 'login')
@@ -37,7 +47,7 @@ class PageController {
 
     /*
     * send questions to UI
-    * */
+    */
     def sendQuestions() {
         int questionIndex = params.count.toInteger()
 
@@ -45,6 +55,9 @@ class PageController {
         render data
     }
 
+
+    /**
+     *check Answer method used for checking correct answer*/
     def checkAnswer() {
         int questionIndex = params.count.toInteger()
         if (questions[questionIndex].ans == params.option) {
@@ -63,8 +76,15 @@ class PageController {
         render radioOptions[questionIndex]
     }
 
+
+    /**
+     * Result Method for display percentage, correct and wright answers
+     */
     def result() {
 
+    }
+
+    def result_details() {
         int sum =  userAnswer.values().sum()
         def percentage = (sum/10)*100  //calculate percentage
 
@@ -73,21 +93,36 @@ class PageController {
         int wrongAnswerCount = userAnswer.values().count {it==0}
 
         /*Question and answer details*/
-        def questionsAnswers = []
-        questionsAnswers = (0..9).collect{
-            data = [questions: questions[it].question,
-                    correctAnswer: questions[it].(questions[it].ans),
-                    wrong_answer: userAnswer[it] == 0?  questions[it].(radioOptions(it)) : null]
-            data as JSON
+        def questionsAnswers = (0..9).collect{
+            [questions: questions[it].question,
+             correctAnswer: questions[it].(questions[it].ans),
+             user_answer: userAnswer[it] == 0?  questions[it].(radioOptions[it]) : null]
+
         }
+
+        def result_status = (percentage > 30)? "Pass" : "Fail"
 
         def data = ["key": [correctAnswerCount:correctAnswerCount,
                             wrongAnswerCount:wrongAnswerCount,
                             questionsAnswers:questionsAnswers,
-                            percentage:percentage]
-                    ] as JSON
+                            percentage:percentage,
+                            result_status:result_status]
+        ] as JSON
 
         render data
+    }
 
+    /**
+     * Create new user
+     */
+    def createUser() {
+        if (userInfo[params.uname] == null && userInfo[params.uname] == null) {
+            userInfo = [(params.uname): [fname: params.first_name, lname: params.last_name, email: params.cemail, password: params.cpassword]]
+            flash.message = "Account Successfully Created"
+        } else {
+            flash.message = "Account Already Exist"
+        }
+
+        redirect(action: 'login')
     }
 }

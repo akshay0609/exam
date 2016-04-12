@@ -19,41 +19,42 @@
     <script src="<%=request.contextPath%>/js/result.js"></script>
     <div class="container">
         <div class="row">
-            <div class="col s12 m6 l6">
+            <div class="col s12 m12 l12">
                 <div class="text-flow section ">
                     <h5>Subject :- Ruby on Rails</h5>
                 </div>
                 <div class="divider"></div>
                 <div class="section col s12 m5 l5">
                     <!-- text field -->
-                    <h5 class="section">Result :- <span class="green-text center" id="result">Pass</span></h5>
-                    <h5 class="section">Percentage:- <span class="green-text center" id="percentage">80%</span></h5>
+                    <h5 class="section center-align">Result :- <span class="center" id="result"></span></h5>
+                    <h5 class="section center-align">Percentage:- <span class=" center" id="percentage"></span></h5>
                 </div>
-                <div class="col s12 m7 l7">
+                <div class="col s12 m6 l6">
                     <!-- Graph -->
-                    <div id="canvas-holder">
-                        <canvas id="chart-area" width="300" height="180"/>
+                    <div class="s12 m6 l6">
+                        <div id="canvas-holder">
+                            <canvas id="chart-area" width="300" height="200"/>
+                        </div>
+                    </div>
+
+                    <div class="col s6 offset-s1 m6 offset-m1 l6 center-align valign-wrapper section">
+                        <i class="material-icons teal-text text-accent-3 center-align">label</i><span id="correct">Correct Answer</span>
+                        <i class="material-icons red-text">label</i><span id="wrong">Wrong Answer</span>
+                        <i class="material-icons grey-text">label</i><span id="not">Not Attendant</span>
                     </div>
                 </div>
 
             </div>
-            <div class="col s12 m6 l6">
-                <!-- progress Graph -->
-            </div>
+            %{--<div class="col s12 m6 l6">--}%
+                %{--<!-- progress Graph -->--}%
+            %{--</div>--}%
         </div>
 
         <!-- Questions Answers -->
         <div class="section">
             <div class="divider"></div>
             <div class="question_answser_details">
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header add_border"><i class="material-icons">question_answer</i><span id="question">What is ROR</span></div>
-                        <div class="collapsible-body">
-                            <p class="card-panel small red-text">Your answer :- <span class="user_answer">Ruby on Ruby</span></p>
-                            <p class="card-panel green-text">Correct answer :- <span class="correct_answer">Ruby on Rails</span></p>
-                        </div>
-                    </li>
+                <ul class="collapsible z-depth-2" data-collapsible="accordion">
                 </ul>
             </div>
         </div>

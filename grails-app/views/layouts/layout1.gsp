@@ -15,7 +15,7 @@
 
 <body>
     <g:render template="/layouts/headerDetails"/>
-    <div style="min-height: 666px" class=""><g:layoutBody/></div>
-<g:render template="/layouts/footerDetails" />
+        <div style="min-height: 666px" class=""><g:layoutBody/></div>
+    <g:render template="/layouts/footerDetails" />
 </body>
 </html>
