@@ -19,33 +19,40 @@ class PageController {
     def result = [:]
     def userInfo = [akshay:[fname:"Akshay", lname:"Sharma", email:"akshay.sharma@krixi.in", password:"123456"]]
 
-    def userName = ""
+    def userName = "Akshay"
     def index() { }
     def login() {}
-    def test() {}
+
+    def dashBoard() {
+        return [params: [name: userName]]
+    }
+
+    def result() {
+        return [params: [name: userName]]
+    }
 
     def home() {
         userAnswer = [:]
         radioOptions = [:]
         result = [:]
+        return [params: [name: userName]]
     }
-
 
     /**
      * Check authorize user
      */
     def accountValidation() {
-         if (userInfo[params.username].(password) == params.password) {
+         if (userInfo[params.username] != null && userInfo[params.username].(password) == params.password) {
             flash.message = "Welcome to test.com"
             userName = userInfo[params.username].(fname)
-            redirect(action: 'home', params: [name: userName])
+            redirect(action: 'dashBoard', params: [name: userName])
          } else {
             flash.message = "Username or Password is invalid"
             redirect(action: 'login')
          }
     }
 
-    /*
+    /**
     * send questions to UI
     */
     def sendQuestions() {
@@ -71,19 +78,17 @@ class PageController {
         }
     }
 
+    /**
+     * Send option radio for setting which option need to enable
+     */
     def sendOptionForRadio() {
         int questionIndex = params.questionIndex.toInteger()
         render radioOptions[questionIndex]
     }
 
-
     /**
      * Result Method for display percentage, correct and wright answers
      */
-    def result() {
-
-    }
-
     def result_details() {
         int sum =  userAnswer.values().sum()
         def percentage = (sum/10)*100  //calculate percentage
@@ -122,7 +127,56 @@ class PageController {
         } else {
             flash.message = "Account Already Exist"
         }
-
         redirect(action: 'login')
+    }
+
+    def jsGrid() {
+        println params
+        def staticData = [
+                //Sr.No: "001", Subject: "aaaa", Date: "12\/4\/2016", Time:"2", Result: "Pass",Precentage:"77%"
+                ["Sr_No": "1", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                                                          "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                                                          "</div>"],
+                ["Sr_No": "2", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "3", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "4", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "5", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "6", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "7", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "8", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "9", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "10", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "11", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "12", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
+                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
+                        "</div>"],
+                ["Sr_No": "13", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
+                ["Sr_No": "14", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
+                ["Sr_No": "15", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
+                ["Sr_No": "16", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
+                ["Sr_No": "17", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
+                ["Sr_No": "18", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
+                ["Sr_No": "19", "Subject": "JavaScript", "Date": "12/4/2016", "Time":"12:00", "Result": "Pass","Percentage":"77%"]]
+        render staticData as JSON
     }
 }

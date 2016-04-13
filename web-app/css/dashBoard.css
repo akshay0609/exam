@@ -1,0 +1,29 @@
+.profile_border {
+
+}
+
+.profile_contain {
+    border: solid 1px #eeeeee;
+}
+
+.user_name{
+    margin-top: 13%;
+}
+
+.second_row {
+    margin-top: 5%;
+}
+
+.progress {
+    width: 100%;
+    color: #0059bc;
+}
+
+.jsGrid {
+    border: solid 1px #e0e0e0;
+}
+
+#detail_history {
+    padding: 3% 0 2%;
+    color: #00b8d4;
+}

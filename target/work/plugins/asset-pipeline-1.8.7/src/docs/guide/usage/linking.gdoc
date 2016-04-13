@@ -32,7 +32,7 @@ It is also possible to return an assetPath as a string for injection in your own
 It is also possible to execute a code section only if an asset exists or to simply test for existence
 
 {code}
-<asset:assetPathExists src="test.js">
+<asset:assetPathExists src="dashBoard.js">
 This will only be displayed if the asset exists
 </asset:assetPathExists>
 {code}
@@ -40,7 +40,7 @@ This will only be displayed if the asset exists
 or
 
 {code}
-asset.assetPathExists(src: 'test.js') //returns true or false
+asset.assetPathExists(src: 'dashBoard.js') //returns true or false
 {code}
 
 
