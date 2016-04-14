@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    swal("")
+    swal("Welcome to test.com!", "Check out multiple test and improve your self ")
     $(".authentication").css({"display":""})
 
     $(".z-depth-1").on({

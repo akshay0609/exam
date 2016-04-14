@@ -16,9 +16,15 @@
 
 .progress {
     width: 100%;
+    width: 100%;
     color: #0059bc;
 }
+.range-field {
 
+    width: 100%;
+    width: 100%;
+    color: #0059bc;
+}
 .jsGrid {
     border: solid 1px #e0e0e0;
 }

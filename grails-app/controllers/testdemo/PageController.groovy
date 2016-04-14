@@ -1,8 +1,11 @@
 package testdemo
 
 import grails.converters.JSON
+import userInfo.User
 
 class PageController {
+
+
     //Initialize variables
     def questions = [[question:"what is a ROR",option1:"Ruby on Rails",option2:"Ruby on Ruby",option3:"Rails on Rails",option4:"Rails on Rails",ans:"option1"],
                      [question:"what is a output for a,b = 2,1",option1:"a = 1, b = 1",option2:"a = 2, b = 2",option3:"a = 2, b = 1",option4:"Error",ans:"option3"],
@@ -18,10 +21,11 @@ class PageController {
     def radioOptions = [:]
     def result = [:]
     def userInfo = [akshay:[fname:"Akshay", lname:"Sharma", email:"akshay.sharma@krixi.in", password:"123456"]]
-
     def userName = "Akshay"
+
     def index() { }
     def login() {}
+    def homePage() {}
 
     def dashBoard() {
         return [params: [name: userName]]
@@ -42,6 +46,7 @@ class PageController {
      * Check authorize user
      */
     def accountValidation() {
+
          if (userInfo[params.username] != null && userInfo[params.username].(password) == params.password) {
             flash.message = "Welcome to test.com"
             userName = userInfo[params.username].(fname)
@@ -121,6 +126,15 @@ class PageController {
      * Create new user
      */
     def createUser() {
+       /* def user = new User(fName: params.first_name,lName: params.last_name,userName: params.uname,email: params.cemail,password: params.cpassword)
+        if(user.save()) {
+            flash.message = "Account Successfully Created"
+        } else {
+            flash.message = "Account Already Exist"
+        }
+        redirect(action: 'login')*/
+
+        /*for static data*/
         if (userInfo[params.uname] == null && userInfo[params.uname] == null) {
             userInfo = [(params.uname): [fname: params.first_name, lname: params.last_name, email: params.cemail, password: params.cpassword]]
             flash.message = "Account Successfully Created"
@@ -179,4 +193,21 @@ class PageController {
                 ["Sr_No": "19", "Subject": "JavaScript", "Date": "12/4/2016", "Time":"12:00", "Result": "Pass","Percentage":"77%"]]
         render staticData as JSON
     }
+
+    def create() {
+        def user = new User(fName:"Akshay",lName: "Sharma",userName: "akshay",email: "akshay@gmail.com",password: "1")
+//        user.save()
+        println(user.save())
+        println(User.list())
+        User.list().each {println(it.dump())}
+        render user
+
+
+    }
+
+
+    /*Database used in page */
+
+
+
 }

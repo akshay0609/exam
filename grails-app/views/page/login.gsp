@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="section">
-                                    <input type="submit" class="col s12 m4 l4 offset-m4 offset-l4 btn red" value="Register">
+                                    <input type="submit" id="Register" class="col s12 m4 l4 offset-m4 offset-l4 btn red" value="Register">
                                 </div>
                             </form>
 

@@ -43,3 +43,10 @@ $("#formValidate").validate({
         }
     }
 });
+
+//$('document').ready(function(){
+//   $('#submit1').click(function(){
+//
+//
+//   }) ;
+//});
