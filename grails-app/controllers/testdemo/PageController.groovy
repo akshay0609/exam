@@ -1,15 +1,16 @@
 package testdemo
 
+import com.userInfo.User
 import grails.converters.JSON
-import userInfo.User
+
 
 class PageController {
 
 
     //Initialize variables
-    def questions = [[question:"what is a ROR",option1:"Ruby on Rails",option2:"Ruby on Ruby",option3:"Rails on Rails",option4:"Rails on Rails",ans:"option1"],
-                     [question:"what is a output for a,b = 2,1",option1:"a = 1, b = 1",option2:"a = 2, b = 2",option3:"a = 2, b = 1",option4:"Error",ans:"option3"],
-                     [question:"How to run Ruby on Rails project",option1: "rails server",option2: "rails run-app",option3: "rails run" ,option4: "run-app",ans:"option1"],
+    def questions = [[question: "what is a ROR",option1:"Ruby on Rails",option2:"Ruby on Ruby",option3:"Rails on Rails",option4:"Rails on Rails",ans:"option1"],
+                     [question: "what is a output for a,b = 2,1",option1:"a = 1, b = 1",option2:"a = 2, b = 2",option3:"a = 2, b = 1",option4:"Error",ans:"option3"],
+                     [question: "How to run Ruby on Rails project",option1: "rails server",option2: "rails run-app",option3: "rails run" ,option4: "run-app",ans:"option1"],
                      [question: "Which of the following commands adds the data model info to the model file?" ,option1: "annotate" ,option2: "bundle install",option3: "generate model" ,option4:"Rails server",ans:"option3"],
                      [question: "Which part of the MVC stack does ERB or HAML typically participate in?",option1:"View" ,option2: "Controller" ,option3: "Model" ,option4: "Class",ans:"option1"],
                      [question: "How can you get a list of all available rails generators?",option1: "rake generate",option2: "rails g --list" ,option3: "rails generate" ,option4:"rails generate --tasks",ans:"option3"],
@@ -20,7 +21,6 @@ class PageController {
     def userAnswer = [:]
     def radioOptions = [:]
     def result = [:]
-    def userInfo = [akshay:[fname:"Akshay", lname:"Sharma", email:"akshay.sharma@krixi.in", password:"123456"]]
     def userName = "Akshay"
 
     def index() { }
@@ -45,24 +45,23 @@ class PageController {
     /**
      * Check authorize user
      */
-    def accountValidation() {
-
-         if (userInfo[params.username] != null && userInfo[params.username].(password) == params.password) {
-            flash.message = "Welcome to test.com"
-            userName = userInfo[params.username].(fname)
-            redirect(action: 'dashBoard', params: [name: userName])
-         } else {
-            flash.message = "Username or Password is invalid"
-            redirect(action: 'login')
-         }
-    }
+//    def accountValidation() {
+//
+//         if (userInfo[params.username] != null && userInfo[params.username].(password) == params.password) {
+//            flash.message = "Welcome to test.com"
+//            userName = userInfo[params.username].(fname)
+//            redirect(action: 'dashBoard', params: [name: userName])
+//         } else {
+//            flash.message = "Username or Password is invalid"
+//            redirect(action: 'login')
+//         }
+//    }
 
     /**
     * send questions to UI
     */
     def sendQuestions() {
         int questionIndex = params.count.toInteger()
-
         def data = ["key": questions[questionIndex]] as JSON
         render data
     }
@@ -125,24 +124,24 @@ class PageController {
     /**
      * Create new user
      */
-    def createUser() {
-       /* def user = new User(fName: params.first_name,lName: params.last_name,userName: params.uname,email: params.cemail,password: params.cpassword)
-        if(user.save()) {
-            flash.message = "Account Successfully Created"
-        } else {
-            flash.message = "Account Already Exist"
-        }
-        redirect(action: 'login')*/
-
-        /*for static data*/
-        if (userInfo[params.uname] == null && userInfo[params.uname] == null) {
-            userInfo = [(params.uname): [fname: params.first_name, lname: params.last_name, email: params.cemail, password: params.cpassword]]
-            flash.message = "Account Successfully Created"
-        } else {
-            flash.message = "Account Already Exist"
-        }
-        redirect(action: 'login')
-    }
+//    def createUser() {
+//       /* def user = new User(fName: params.first_name,lName: params.last_name,userName: params.uname,email: params.cemail,password: params.cpassword)
+//        if(user.save()) {
+//            flash.message = "Account Successfully Created"
+//        } else {
+//            flash.message = "Account Already Exist"
+//        }
+//        redirect(action: 'login')*/
+//
+//        /*for static data*/
+//        if (userInfo[params.uname] == null && userInfo[params.uname] == null) {
+//            userInfo = [(params.uname): [fname: params.first_name, lname: params.last_name, email: params.cemail, password: params.cpassword]]
+//            flash.message = "Account Successfully Created"
+//        } else {
+//            flash.message = "Account Already Exist"
+//        }
+//        redirect(action: 'login')
+//    }
 
     def jsGrid() {
         println params
@@ -195,19 +194,35 @@ class PageController {
     }
 
     def create() {
-        def user = new User(fName:"Akshay",lName: "Sharma",userName: "akshay",email: "akshay@gmail.com",password: "1")
+        def user = new User(fName: "Akshay",lName:  "Sharma",userName: "akshay",email:  "akshay@gmail.com",password:  "1")
+
 //        user.save()
-        println(user.save())
+        println(User.findByFName("akshay").lName)
         println(User.list())
         User.list().each {println(it.dump())}
         render user
-
-
     }
 
-
     /*Database used in page */
+    def createUser() {
+         def user = new User(fName: params.first_name,lName: params.last_name,userName: params.uname,email: params.cemail,password: params.cpassword)
+         if(user.save()) {
+             flash.message = "Account Successfully Created"
+         } else {
+             flash.message = "Account Already Exist"
+         }
+        redirect(action: 'login')
+    }
 
-
-
+    def accountValidation() {
+        def user = User.findByUserName(params.username)
+        if ( user && user.password == params.password) {
+            flash.message = "Welcome to test.com"
+            userName = user.fName
+            redirect(action: 'dashBoard', params: [name: userName])
+        } else {
+            flash.message = "Username or Password is invalid"
+            redirect(action: 'login')
+        }
+    }
 }
