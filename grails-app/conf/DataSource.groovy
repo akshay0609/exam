@@ -2,8 +2,8 @@ dataSource {
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    username = "root"
-    password = "root"
+    username = "debian-sys-maint"
+    password = ""
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -19,8 +19,8 @@ environments {
         dataSource {
             dbCreate = "update"
             url ="jdbc:mysql://localhost/test?useUnicode=yes&characterEncoding=UTF-8"
-            username = "root"
-            password = "root"
+            username = "debian-sys-maint"
+            password = ""
         }
     }
     test {

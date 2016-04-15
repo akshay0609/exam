@@ -226,7 +226,7 @@
     </div><!-- end Second row Subject Images  and description -->
 
     <!-- ******************************* -->
-    <!-- Second row Subject Images  and description -->
+    <!-- Table History -->
     <!-- ******************************* -->
         <h4  class="flow-text center-align" id="detail_history"><span>Detail History of Test</span></h4>
         <div id="jsGrid" class="jsgrid center z-depth-3" style="position: relative; height: 90%; width: 100%;"></div>

@@ -1,5 +1,7 @@
 package testdemo
 
+import com.exam.Question
+import com.exam.Subject
 import com.userInfo.User
 import grails.converters.JSON
 
@@ -60,11 +62,11 @@ class PageController {
     /**
     * send questions to UI
     */
-    def sendQuestions() {
-        int questionIndex = params.count.toInteger()
-        def data = ["key": questions[questionIndex]] as JSON
-        render data
-    }
+//    def sendQuestions() {
+//        int questionIndex = params.count.toInteger()
+//        def data = ["key": questions[questionIndex]] as JSON
+//        render data
+//    }
 
 
     /**
@@ -106,7 +108,6 @@ class PageController {
             [questions: questions[it].question,
              correctAnswer: questions[it].(questions[it].ans),
              user_answer: userAnswer[it] == 0?  questions[it].(radioOptions[it]) : null]
-
         }
 
         def result_status = (percentage > 30)? "Pass" : "Fail"
@@ -194,9 +195,11 @@ class PageController {
     }
 
     def create() {
+
+//        answerOption blank: false
         def user = new User(fName: "Akshay",lName:  "Sharma",userName: "akshay",email:  "akshay@gmail.com",password:  "1")
 
-//        user.save()
+        user.save()
         println(User.findByFName("akshay").lName)
         println(User.list())
         User.list().each {println(it.dump())}
@@ -225,4 +228,66 @@ class PageController {
             redirect(action: 'login')
         }
     }
+
+    def createQuestion() {
+        def subject = Subject.findAll()
+        return [subject:  subject,params: [name: userName]]
+    }
+
+    def saveQuestion() {
+        def subject = Subject.findBySubjectName(params.subjectName)
+        def question = new Question(question:params.question, option1:params.option1, option2: params.option2, option3:params.option3, option4:params.option4, answerOption: params.answer, subject: subject)
+        if (subject && question.save()) {
+            flash.message = "Successfully stored"
+        } else {
+            flash.message = "Sorry sir can't store data"
+        }
+        redirect(action: 'createQuestion')
+    }
+
+    def createSubject(){
+
+    }
+
+    def saveSubject() {
+        def subject = new Subject(subjectName: params.subjectName)
+        if (subject.save()) {
+            flash.message = "Successfully stored"
+        } else {
+            flash.message = "Sorry sir can't store data"
+        }
+        redirect(action: 'createSubject', params: [name: userName])
+    }
+
+    def sendQuestions() {
+        int questionIndex = params.count.toInteger()
+        def data = ["key": questions[questionIndex]] as JSON
+        render data
+    }
+
+    def displayAllSubject(){
+        println(params)
+        def subjectDetails = Subject.getAll()
+        def data = subjectDetails.collect{
+            [Sr_No:it.id,
+             Subject:it.subjectName,
+             dateCreated:it.dateCreated.dateString,
+             lastUpdated:it.lastUpdated.dateString,
+             Total_questions:it.questions.size()]
+        }
+        render data as JSON
+    }
+
+    def updateSubject(){
+        println(params)
+//        Subject subject =  new Subject(params)
+//
+////        subject.subjectName = "CSS"
+//        println(subject)
+//        println(subject.subjectName)
+
+//        subject.save(flush: true,failOnError: true)
+    }
+
+
 }

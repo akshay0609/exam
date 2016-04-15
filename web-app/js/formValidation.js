@@ -24,6 +24,31 @@ $("#formValidate").validate({
             required: true,
             minlength: 5,
             equalTo: "#password"
+        },
+        subjectName:{
+            required: true
+        },
+        question:{
+            required: true,
+            minlength: 5
+        },
+        option1:{
+            required: true
+        },
+        option2:{
+            required: true
+        },
+        option3:{
+            required: true
+        },
+        option4:{
+            required: true
+        },
+        answer: {
+            required: true
+        },
+        subjectName: {
+            required: true
         }
     },
     //For custom messages
@@ -43,10 +68,3 @@ $("#formValidate").validate({
         }
     }
 });
-
-//$('document').ready(function(){
-//   $('#submit1').click(function(){
-//
-//
-//   }) ;
-//});

@@ -29,6 +29,7 @@ $(document).ready(function(){
         confirmDeleting: true,
         deleteConfirm: "Do you really want to delete the client?",
 
+
         fields: [
             { name: "Sr_No", type: "text", width: 100 },
             { name: "Subject", type: "text", width: 180 },

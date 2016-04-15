@@ -6,8 +6,13 @@ class User {
     String userName
     String email
     String password
+    boolean admin
     Date dateCreated
     Date lastUpdated
+
+    static mapping = {
+        admin defaultValue: false
+    }
 
     static constraints = {
         fName size: 5..15
