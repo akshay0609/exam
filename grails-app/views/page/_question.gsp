@@ -3,7 +3,7 @@
         <div class="row">
             <div class="section subject_time">
                 <div class="col s11 offset-s1 m7 l4">
-                    <span class="section" style="padding-left: 5%">Subject: Ruby on Rails</span>
+                    <span class="section" style="padding-left: 5%">Subject: ${params.subjectName}</span>
                 </div>
                     %{--<div class="divider hide-on-med-and-up"></div>--}%
                 <div class="col s11 offset-s2 m4  l4 offset-l4 time_details">Time: <time id="time">1:00:00</time></div>
@@ -39,7 +39,11 @@
                     <div class="right col s12 m10 offset-m1 l10 offset-l1">
                         <span><input type="button" class="btn-large col s12 m3 offset-m1 l4 offset-l2 " id="previous" value="previous" name="Previous"></span>
                         <span><input type="button" class=" btn-large col s12 m3 offset-m1 l4 offset-l1 " id="next" value="next" name="Next"></span>
-                        <span><a href="result"><input type="button" class="submit_test hide-on-large-only btn-large col s12 m3 offset-m1 blue" id="submit_test" value="submit_test" name="submit_test"></a></span>
+                        <span>
+                            <g:link controller="page" action="result" params="[subjectName: params.subjectName]"
+                                        class="submit_test hide-on-large-only btn-large col s12 m3 offset-m1 blue" value="submit_test" name="submit_test">
+                            Submit Test</g:link>
+                        </span>
                     </div>
                 </div>
             </div>

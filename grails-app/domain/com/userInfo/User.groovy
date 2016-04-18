@@ -1,5 +1,7 @@
 package com.userInfo
 
+import com.result.Result
+
 class User {
     String fName
     String lName
@@ -9,6 +11,8 @@ class User {
     boolean admin
     Date dateCreated
     Date lastUpdated
+
+    static hasMany = [results:Result]
 
     static mapping = {
         admin defaultValue: false

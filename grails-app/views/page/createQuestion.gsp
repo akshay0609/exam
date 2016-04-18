@@ -13,6 +13,8 @@
 </head>
 
 <body>
+
+    <script src="<%=request.contextPath %>/js/createQuestion.js"></script>
     <g:render template="flash_message"/>
     <div class="container">
         <h2 class="center-align flow-text">Create New Question</h2>

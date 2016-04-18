@@ -2,75 +2,66 @@ package testdemo
 
 import com.exam.Question
 import com.exam.Subject
+import com.result.Result
 import com.userInfo.User
 import grails.converters.JSON
 
 
 class PageController {
 
-
     //Initialize variables
-    def questions = [[question: "what is a ROR",option1:"Ruby on Rails",option2:"Ruby on Ruby",option3:"Rails on Rails",option4:"Rails on Rails",ans:"option1"],
-                     [question: "what is a output for a,b = 2,1",option1:"a = 1, b = 1",option2:"a = 2, b = 2",option3:"a = 2, b = 1",option4:"Error",ans:"option3"],
-                     [question: "How to run Ruby on Rails project",option1: "rails server",option2: "rails run-app",option3: "rails run" ,option4: "run-app",ans:"option1"],
-                     [question: "Which of the following commands adds the data model info to the model file?" ,option1: "annotate" ,option2: "bundle install",option3: "generate model" ,option4:"Rails server",ans:"option3"],
-                     [question: "Which part of the MVC stack does ERB or HAML typically participate in?",option1:"View" ,option2: "Controller" ,option3: "Model" ,option4: "Class",ans:"option1"],
-                     [question: "How can you get a list of all available rails generators?",option1: "rake generate",option2: "rails g --list" ,option3: "rails generate" ,option4:"rails generate --tasks",ans:"option3"],
-                     [question: "In a Rails application, a Gemfile needs to be modified to make use of sqlite3-ruby gems. Which of the following options will use these gems, as per the new Gemfile?" ,option1: "gem bundle install",option2: "mate Gamefile" ,option3: "install bundle Gemfile" ,option4:"bundle install",ans:"option4"],
-                     [question: "How do you list the routes of a Rails application?",option1: "rails show paths" ,option2: "rake routes",option3: "rails generate:routes",option4:"rake router:path",ans:"option2"],
-                     [question: "How do you list the routes of a Rails application?",option1: "Repository",option2: "None of the answers are correct" ,option3: "ActiveRecord" ,option4:"DataMapper",ans:"option3"],
-                     [question: "The method Initialize within a class is always:",option1: "private" ,option2: "public" ,option3: "default" ,option4:"protected",ans:"option2"]]
+    def questions = []
     def userAnswer = [:]
     def radioOptions = [:]
     def result = [:]
     def userName = "Akshay"
-
+    def subject = ""
+    def admin = false
     def index() { }
     def login() {}
     def homePage() {}
+    def demo() {}
+
+    def createSubject(){
+       return [params: [name: userName, admin:admin]]
+    }
+
 
     def dashBoard() {
-        return [params: [name: userName]]
+        return [params: [name: userName,admin:admin]]
     }
 
     def result() {
-        return [params: [name: userName]]
+        subject = params.subjectName
+        return [params: [name: userName,admin:admin]]
     }
 
     def home() {
         userAnswer = [:]
         radioOptions = [:]
         result = [:]
-        return [params: [name: userName]]
+        initializeQuestions()
+        return [params: [name: userName, subjectName: params.subjectName,admin:admin]]
     }
 
     /**
-     * Check authorize user
+     * Initialize questions
      */
-//    def accountValidation() {
-//
-//         if (userInfo[params.username] != null && userInfo[params.username].(password) == params.password) {
-//            flash.message = "Welcome to test.com"
-//            userName = userInfo[params.username].(fname)
-//            redirect(action: 'dashBoard', params: [name: userName])
-//         } else {
-//            flash.message = "Username or Password is invalid"
-//            redirect(action: 'login')
-//         }
-//    }
+    def initializeQuestions() {
+        Subject subject = Subject.findBySubjectName(params.subjectName)
+        questions = subject.questions.collect{
+            [question: it.question,
+            option1:it.option1,
+            option2:it.option2,
+            option3:it.option3,
+            option4:it.option4,
+            ans:it.answerOption]
+        }
+    }
 
     /**
-    * send questions to UI
-    */
-//    def sendQuestions() {
-//        int questionIndex = params.count.toInteger()
-//        def data = ["key": questions[questionIndex]] as JSON
-//        render data
-//    }
-
-
-    /**
-     *check Answer method used for checking correct answer*/
+     *check Answer method used for checking correct answer
+     */
     def checkAnswer() {
         int questionIndex = params.count.toInteger()
         if (questions[questionIndex].ans == params.option) {
@@ -96,8 +87,9 @@ class PageController {
      * Result Method for display percentage, correct and wright answers
      */
     def result_details() {
+
         int sum =  userAnswer.values().sum()
-        def percentage = (sum/10)*100  //calculate percentage
+        float percentage = (sum/10)*100  //calculate percentage
 
         /*Count for correct and wrong answers*/
         int correctAnswerCount = userAnswer.values().count {it==1}
@@ -110,77 +102,39 @@ class PageController {
              user_answer: userAnswer[it] == 0?  questions[it].(radioOptions[it]) : null]
         }
 
-        def result_status = (percentage > 30)? "Pass" : "Fail"
+        String resultStatus = (percentage > 30)? "Pass" : "Fail"
 
-        def data = ["key": [correctAnswerCount:correctAnswerCount,
-                            wrongAnswerCount:wrongAnswerCount,
-                            questionsAnswers:questionsAnswers,
-                            percentage:percentage,
-                            result_status:result_status]
-        ] as JSON
+        def resultDetails = [correctAnswerCount : correctAnswerCount,
+                             wrongAnswerCount   : wrongAnswerCount,
+                             questionsAnswers   : questionsAnswers,
+                             percentage         : percentage,
+                             resultStatus       : resultStatus]
+
+        /*Stored in Database*/
+        try {
+            Result result = new Result(correctAnswerCount: correctAnswerCount,
+                                    wrongAnswerCount: wrongAnswerCount,
+                                    questionsAnswers:questionsAnswers.toString(),
+                                    percentage: percentage,
+                                    resultStatus: resultStatus)
+
+            result.subject = Subject.findBySubjectName(subject)
+            result.user = User.findByUserName(userName)
+
+            result.save(flush: true)
+        } catch (Exception e) {
+            println e.message
+        }
+
+        def data = ["key": resultDetails] as JSON
 
         render data
     }
 
-    /**
-     * Create new user
-     */
-//    def createUser() {
-//       /* def user = new User(fName: params.first_name,lName: params.last_name,userName: params.uname,email: params.cemail,password: params.cpassword)
-//        if(user.save()) {
-//            flash.message = "Account Successfully Created"
-//        } else {
-//            flash.message = "Account Already Exist"
-//        }
-//        redirect(action: 'login')*/
-//
-//        /*for static data*/
-//        if (userInfo[params.uname] == null && userInfo[params.uname] == null) {
-//            userInfo = [(params.uname): [fname: params.first_name, lname: params.last_name, email: params.cemail, password: params.cpassword]]
-//            flash.message = "Account Successfully Created"
-//        } else {
-//            flash.message = "Account Already Exist"
-//        }
-//        redirect(action: 'login')
-//    }
-
     def jsGrid() {
-        println params
+
         def staticData = [
                 //Sr.No: "001", Subject: "aaaa", Date: "12\/4\/2016", Time:"2", Result: "Pass",Precentage:"77%"
-                ["Sr_No": "1", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                                                          "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                                                          "</div>"],
-                ["Sr_No": "2", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
-                ["Sr_No": "3", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
-                ["Sr_No": "4", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
-                ["Sr_No": "5", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
-                ["Sr_No": "6", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
-                ["Sr_No": "7", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
-                ["Sr_No": "8", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
-                ["Sr_No": "9", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
-                ["Sr_No": "10", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
-                ["Sr_No": "11", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
                 ["Sr_No": "12", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
                         "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
                         "</div>"],
@@ -194,19 +148,9 @@ class PageController {
         render staticData as JSON
     }
 
-    def create() {
-
-//        answerOption blank: false
-        def user = new User(fName: "Akshay",lName:  "Sharma",userName: "akshay",email:  "akshay@gmail.com",password:  "1")
-
-        user.save()
-        println(User.findByFName("akshay").lName)
-        println(User.list())
-        User.list().each {println(it.dump())}
-        render user
-    }
-
-    /*Database used in page */
+    /**
+     * Create new user
+     */
     def createUser() {
          def user = new User(fName: params.first_name,lName: params.last_name,userName: params.uname,email: params.cemail,password: params.cpassword)
          if(user.save()) {
@@ -217,11 +161,15 @@ class PageController {
         redirect(action: 'login')
     }
 
+    /**
+     * Check authorize user
+     */
     def accountValidation() {
         def user = User.findByUserName(params.username)
         if ( user && user.password == params.password) {
             flash.message = "Welcome to test.com"
             userName = user.fName
+            admin = user.admin
             redirect(action: 'dashBoard', params: [name: userName])
         } else {
             flash.message = "Username or Password is invalid"
@@ -229,11 +177,17 @@ class PageController {
         }
     }
 
+    /**
+     * Create new question only access for admin
+     */
     def createQuestion() {
         def subject = Subject.findAll()
-        return [subject:  subject,params: [name: userName]]
+        return [subject: subject, params: [name: userName, admin:admin]]
     }
 
+    /**
+     * new question save in database
+     */
     def saveQuestion() {
         def subject = Subject.findBySubjectName(params.subjectName)
         def question = new Question(question:params.question, option1:params.option1, option2: params.option2, option3:params.option3, option4:params.option4, answerOption: params.answer, subject: subject)
@@ -245,10 +199,9 @@ class PageController {
         redirect(action: 'createQuestion')
     }
 
-    def createSubject(){
-
-    }
-
+    /**
+     * new subject save in database
+     */
     def saveSubject() {
         def subject = new Subject(subjectName: params.subjectName)
         if (subject.save()) {
@@ -256,20 +209,25 @@ class PageController {
         } else {
             flash.message = "Sorry sir can't store data"
         }
-        redirect(action: 'createSubject', params: [name: userName])
+        redirect(action: 'createSubject', params: [name: userName, admin:admin])
     }
 
+    /**
+     * new subject save in database
+     */
     def sendQuestions() {
         int questionIndex = params.count.toInteger()
         def data = ["key": questions[questionIndex]] as JSON
         render data
     }
 
+    /**
+     * display all details of subject and send json format
+     */
     def displayAllSubject(){
-        println(params)
         def subjectDetails = Subject.getAll()
         def data = subjectDetails.collect{
-            [Sr_No:it.id,
+            [ID:it.id,
              Subject:it.subjectName,
              dateCreated:it.dateCreated.dateString,
              lastUpdated:it.lastUpdated.dateString,
@@ -278,16 +236,31 @@ class PageController {
         render data as JSON
     }
 
+    /**
+     * Update the subject
+     */
     def updateSubject(){
-        println(params)
-//        Subject subject =  new Subject(params)
-//
-////        subject.subjectName = "CSS"
-//        println(subject)
-//        println(subject.subjectName)
+        long id =  params.ID.toInteger()
 
-//        subject.save(flush: true,failOnError: true)
+        Subject subject = Subject.findById(id)
+        subject.subjectName = params.Subject
+        subject.save(flush: true,failOnError: true)
+        def data = [ID:subject.id,
+             Subject:subject.subjectName,
+             dateCreated:subject.dateCreated.dateString,
+             lastUpdated:subject.lastUpdated.dateString,
+             Total_questions:subject.questions.size()]
+        render data as JSON
     }
 
-
+    /**
+     * Delete Subject
+     */
+    def deletedSubject() {
+        long id =  params.ID.toInteger()
+        Subject subject = Subject.findById(id)
+        subject.delete(flush: true,failOnError: true)
+        def data = [OK:"Success"]
+        render data as JSON
+    }
 }

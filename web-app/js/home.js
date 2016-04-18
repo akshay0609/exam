@@ -55,17 +55,6 @@ $(document).ready(function () {
             }
         });
     });
-
-    //Result
-    //$('.submit_test').click(function(){
-    //    $.ajax({
-    //      url: 'result',
-    //      success: function(data) {
-    //        console.log(data + "%")
-    //      }
-    //    });
-    //});
-
 });
 
 function ajaxCall(count){

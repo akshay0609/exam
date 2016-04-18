@@ -18,9 +18,22 @@
                         </li>
                         <li>
                             <a href="" class="dropdown-button1 authentication" data-activates="test1" style="display:none">
-                                <i class="material-icons left">mode_edit</i>Test
+                                <i class="material-icons left">receipt</i>Test
                             </a>
                         </li>
+
+                        <%if(params.admin == true) { %>
+                            <li>
+                                <a href="createQuestion" class="authentication" style="display:none">
+                                    <i class="material-icons left">mode_edit</i>Create New Questions
+                                </a>
+                            </li>
+                            <li>
+                                <a href="createSubject" class="authentication" style="display:none">
+                                    <i class="material-icons left">subject</i>Add Subject
+                                </a>
+                            </li>
+                        <%}%>
                         <li>
                             <a href="" data-activates="user" class="waves-effect waves-teal dropdown-button authentication" style="display:none">
                                 <i class="material-icons left">perm_identity</i>Hi <span id="userName">${params.name}</span>
@@ -39,13 +52,14 @@
                     <!-- Test sub-menu -->
                     <!-- ******************************* -->
                     <ul class="right dropdown-content" id="test1">
-                        <li><a href="#" class="white-text center waves-effect waves-teal brown darken-4">HTML</a></li>
-                        <li><a href="#" class="white-text center waves-effect waves-teal brown darken-4">CSS</a></li>
-                        <li><a href="#" class="white-text center waves-effect waves-teal brown darken-4">JavaScript</a></li>
-                        <li><a href="#" class="white-text center waves-effect waves-teal brown darken-4">Jquery</a></li>
-                        <li><a href="#" class="white-text center waves-effect waves-teal brown darken-4">Ruby</a></li>
-                        <li><a href="home" class="white-text center waves-effect waves-teal brown darken-4">Ruby on Rails</a></li>
-                        <li><a href="#" class="white-text center waves-effect waves-teal brown darken-4">Grails</a></li>
+                        <% subject = com.exam.Subject.getAll()%>
+                        <% subject.each {%>
+                            <li>
+                                <g:link controller="page" action="home" params="[subjectName:it.subjectName]"
+                                         class="white-text center waves-effect waves-teal brown darken-4">
+                                         ${it.subjectName}</g:link>
+                            </li>
+                        <%}%>
                     </ul>
 
                     <!-- ******************************* -->

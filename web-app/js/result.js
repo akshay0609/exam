@@ -14,8 +14,8 @@ function ajaxCall(){
         success: function(data) {
             var temp_data = data.key;
 
-            $('#result').text(temp_data.result_status);
-            if (temp_data.result_status == "Fail") {
+            $('#result').text(temp_data.resultStatus);
+            if (temp_data.resultStatus == "Fail") {
                 $('#result').css({"color":"#d50000"});
                 $('#percentage').css({"color":"#d50000"});
             }else {
