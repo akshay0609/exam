@@ -14,14 +14,14 @@ $(document).ready(function(){
     });
 
     $("#jsGrid").jsGrid({
-        height: "45%",
-        width: "100%",
+        height      : "45%",
+        width       : "100%",
 
         //filtering: true,
-        editing: false,
-        sorting: true,
-        paging: true,
-        autoload: true,
+        editing     : false,
+        sorting     : true,
+        paging      : true,
+        autoload    : true,
 
         pageSize: 6,
         pageButtonCount: 5,
@@ -31,19 +31,18 @@ $(document).ready(function(){
 
 
         fields: [
-            { name: "Sr_No", type: "text", width: 100 },
+            { name: "ID", type: "text", width: 100 },
             { name: "Subject", type: "text", width: 180 },
             { name: "Date", type: "text", width: 150 },
-            { name: "Time", type: "text", sorting: false, width: 150 },
             { name: "Result", type: "text", width: 100 },
             { name: "Percentage", type: "text", width: 200 },
-            { type: "control",  editButton: false }
+            //{ type: "control",  editButton: false }
         ],
 
         //data :[
-        //    //Sr.No: "001", Subject: "aaaa", Date: "12\/4\/2016", Time:"2", Result: "Pass",Precentage:"77%"
-        //    {"Sr_No": "1", "Subject": "HTML", "Date": "13\/4\/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"},
-        //    {"Sr_No": "2", "Subject": "JavaScript", "Date": "12\/4\/2016", "Time":"12:00", "Result": "Pass","Percentage":"77%"}
+        //    //ID: "001", Subject: "aaaa", Date: "12\/4\/2016", Time:"2", Result: "Pass",Precentage:"77%"
+        //    {"ID": "1", "Subject": "HTML", "Date": "13\/4\/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"},
+        //    {"ID": "2", "Subject": "JavaScript", "Date": "12\/4\/2016", "Time":"12:00", "Result": "Pass","Percentage":"77%"}
         //]
 
         controller: {

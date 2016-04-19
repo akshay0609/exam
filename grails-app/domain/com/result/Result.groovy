@@ -10,9 +10,9 @@ class Result {
 
     String resultStatus
     float percentage
-    int correctAnswerCount
-    int wrongAnswerCount
-    String questionsAnswers
+//    int correctAnswerCount
+//    int wrongAnswerCount
+//    List questionsAnswers
     Date dateCreated
     Date lastUpdated
 
@@ -21,8 +21,5 @@ class Result {
     static constraints = {
         resultStatus blank:false
         percentage blank: false
-        correctAnswerCount blank: false
-        wrongAnswerCount blank: false
-        questionsAnswers blank: false
     }
 }

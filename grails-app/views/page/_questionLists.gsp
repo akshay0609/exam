@@ -14,5 +14,5 @@
     </ul>
     <g:link controller="page" action="result" params="[subjectName: params.subjectName]"
             class="submit_test btn btn-large blue center-align waves-effect waves-teal" style="width: 98%">
-        Submit Test</g:link>
+            Submit Test</g:link>
 </div>

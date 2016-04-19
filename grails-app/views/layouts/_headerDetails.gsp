@@ -11,6 +11,13 @@
                     <!-- Menu -->
                     <!-- ******************************* -->
                     <ul class="right hide-on-med-and-down">
+                        <% if("${params.name}" == null){%>
+                            <li>
+                                <a href="homePage" class="waves-effect waves-teal white-text flow-text">
+                                    <i class="material-icons left">dashboard</i>Home
+                                </a>
+                            </li>
+                        <%}%>
                         <li>
                             <a href="dashBoard" class="tooltipped authentication" data-position="bottom" data-delay="50" style="display:none" data-tooltip="Home">
                                 <i class="material-icons left">dashboard</i>Home
@@ -21,7 +28,6 @@
                                 <i class="material-icons left">receipt</i>Test
                             </a>
                         </li>
-
                         <%if(params.admin == true) { %>
                             <li>
                                 <a href="createQuestion" class="authentication" style="display:none">
@@ -66,11 +72,47 @@
                     <!-- Mobile view menu -->
                     <!-- ******************************* -->
                     <ul class="side-nav white-text brown darken-4" id="mobile-demo">
-                        <li><a href="dashBoard" class="waves-effect waves-teal white-text flow-text center-align">Home</a></li>
+                        <li class="flow-text white-text center-align">
+                            <span >Hi ${params.name}</span>
+                        </li>
+                        <% if("${params.name}" == null){%>
+                            <li>
+                                <a href="homePage" class="waves-effect waves-teal white-text flow-text">
+                                    <i class="material-icons left">dashboard</i>Home
+                                </a>
+                            </li>
+                        <%}%>
+                        <li>
+                            <a href="dashBoard" style="display:none" class="waves-effect waves-teal white-text flow-text authentication">
+                                <i class="material-icons left">dashboard</i>Home
+                            </a>
+                        </li>
                         <li><div class="divider"></div></li>
-                        <li><a href="" class="waves-effect waves-teal flow-text dropdown-button white-text center-align authentication" data-activates="test1" style="display:none">Test</a></li>
+                        <li>
+                            <a href="" class="waves-effect waves-teal flow-text dropdown-button white-text authentication" data-activates="test1" style="display:none">
+                                <i class="material-icons left">receipt</i>Test
+                            </a>
+                        </li>
                         <li><div class="divider"></div></li>
-                        <li><a href="login" class="waves-effect waves-teal flow-text center-align white-text authentication" style="display:none">Log out</a></li>
+                        <%if(params.admin == true) { %>
+                            <li>
+                                <a href="createQuestion" class="waves-effect waves-teal white-text flow-text authentication" style="display:none">
+                                    <i class="material-icons left">mode_edit</i>Create New Questions
+                                </a>
+                            </li>
+                            <li><div class="divider"></div></li>
+                            <li>
+                                <a href="createSubject" class="waves-effect waves-teal white-text flow-text authentication" style="display:none">
+                                    <i class="material-icons left">subject</i>Add Subject
+                                </a>
+                            </li>
+                        <%}%>
+                        <li><div class="divider"></div></li>
+                        <li>
+                            <a href="login" class="waves-effect waves-teal flow-text white-text authentication" style="display:none">
+                                <i class="material-icons left">settings_power</i> Log out
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

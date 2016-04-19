@@ -10,14 +10,15 @@ import grails.converters.JSON
 class PageController {
 
     //Initialize variables
-    def questions = []
-    def userAnswer = [:]
-    def radioOptions = [:]
-    def result = [:]
-    def userName = "Akshay"
-    def subject = ""
-    def admin = false
-    def index() { }
+    def questions       = []
+    def userAnswer      = [:]
+    def radioOptions    = [:]
+    def result          = [:]
+    def userName        = "Akshay"
+    def subject         = ""
+    def admin           = false
+
+    def index(){}
     def login() {}
     def homePage() {}
     def demo() {}
@@ -25,7 +26,6 @@ class PageController {
     def createSubject(){
        return [params: [name: userName, admin:admin]]
     }
-
 
     def dashBoard() {
         return [params: [name: userName,admin:admin]]
@@ -50,12 +50,12 @@ class PageController {
     def initializeQuestions() {
         Subject subject = Subject.findBySubjectName(params.subjectName)
         questions = subject.questions.collect{
-            [question: it.question,
-            option1:it.option1,
-            option2:it.option2,
-            option3:it.option3,
-            option4:it.option4,
-            ans:it.answerOption]
+            [question   :   it.question,
+            option1     :   it.option1,
+            option2     :   it.option2,
+            option3     :   it.option3,
+            option4     :   it.option4,
+            ans         :   it.answerOption]
         }
     }
 
@@ -65,11 +65,11 @@ class PageController {
     def checkAnswer() {
         int questionIndex = params.count.toInteger()
         if (questions[questionIndex].ans == params.option) {
-            userAnswer[questionIndex] = 1
+            userAnswer[questionIndex]   = 1
             radioOptions[questionIndex] = params.option
             render 'write answer'
         } else {
-            userAnswer[questionIndex] = 0
+            userAnswer[questionIndex]   = 0
             radioOptions[questionIndex] = params.option
             render 'wrong answer'
         }
@@ -88,64 +88,57 @@ class PageController {
      */
     def result_details() {
 
-        int sum =  userAnswer.values().sum()
-        float percentage = (sum/10)*100  //calculate percentage
+        int sum                     =  userAnswer.values().sum()
+        float percentage            = (sum/10)*100
 
         /*Count for correct and wrong answers*/
-        int correctAnswerCount = userAnswer.values().count {it==1}
-        int wrongAnswerCount = userAnswer.values().count {it==0}
+        int correctAnswerCount      = userAnswer.values().count {it==1}
+        int wrongAnswerCount        = userAnswer.values().count {it==0}
 
-        /*Question and answer details*/
-        def questionsAnswers = (0..9).collect{
-            [questions: questions[it].question,
-             correctAnswer: questions[it].(questions[it].ans),
-             user_answer: userAnswer[it] == 0?  questions[it].(radioOptions[it]) : null]
+        def questionsAnswers        = (0..9).collect{
+            [questions              : questions[it].question,
+             correctAnswer          : questions[it].(questions[it].ans),
+             user_answer            : userAnswer[it] == 0?  questions[it].(radioOptions[it]) : null]
         }
 
-        String resultStatus = (percentage > 30)? "Pass" : "Fail"
+        String resultStatus         = (percentage > 30)? "Pass" : "Fail"
 
-        def resultDetails = [correctAnswerCount : correctAnswerCount,
-                             wrongAnswerCount   : wrongAnswerCount,
-                             questionsAnswers   : questionsAnswers,
-                             percentage         : percentage,
-                             resultStatus       : resultStatus]
+        def resultDetails           = [correctAnswerCount : correctAnswerCount,
+                                       wrongAnswerCount   : wrongAnswerCount,
+                                       questionsAnswers   : questionsAnswers,
+                                       percentage         : percentage,
+                                       resultStatus       : resultStatus]
 
         /*Stored in Database*/
         try {
-            Result result = new Result(correctAnswerCount: correctAnswerCount,
-                                    wrongAnswerCount: wrongAnswerCount,
-                                    questionsAnswers:questionsAnswers.toString(),
-                                    percentage: percentage,
-                                    resultStatus: resultStatus)
-
-            result.subject = Subject.findBySubjectName(subject)
-            result.user = User.findByUserName(userName)
+            Result result           = new Result( percentage      : percentage,
+                                        resultStatus    : resultStatus)
+            result.subject          = Subject.findBySubjectName(subject)
+            result.user             = User.findByUserName(userName)
 
             result.save(flush: true)
         } catch (Exception e) {
             println e.message
         }
 
-        def data = ["key": resultDetails] as JSON
-
+        def data                    = ["key": resultDetails] as JSON
         render data
     }
 
     def jsGrid() {
 
-        def staticData = [
-                //Sr.No: "001", Subject: "aaaa", Date: "12\/4\/2016", Time:"2", Result: "Pass",Precentage:"77%"
-                ["Sr_No": "12", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"<div class=\" progress\" style=\"width:100%; height:100%\">55\n" +
-                        "<div class=\"center valign determinate\" style=\"width: 70%\" value=\"55\">70%</div>\n" +
-                        "</div>"],
-                ["Sr_No": "13", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
-                ["Sr_No": "14", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
-                ["Sr_No": "15", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
-                ["Sr_No": "16", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
-                ["Sr_No": "17", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
-                ["Sr_No": "18", "Subject": "HTML", "Date": "13/4/2016", "Time":"10:00", "Result": "Pass","Percentage":"87%"],
-                ["Sr_No": "19", "Subject": "JavaScript", "Date": "12/4/2016", "Time":"12:00", "Result": "Pass","Percentage":"77%"]]
-        render staticData as JSON
+        def results = User.findByUserName(userName).results
+
+        def data = results.collect{
+            [ID         : it.id,
+             Subject    : it.subject.subjectName,
+             Date       : it.dateCreated.dateString,
+             Result     : it.resultStatus,
+             Percentage : "<div class=\" progress\" style=\"width:100%; height:100%\">0\n" +
+                          "<div class=\"center valign determinate\" style=\"width: ${it.percentage}%\" value=\"\">${it.percentage}%</div>\n" +
+                          "</div>"]
+        }
+        render data as JSON
     }
 
     /**
@@ -167,10 +160,12 @@ class PageController {
     def accountValidation() {
         def user = User.findByUserName(params.username)
         if ( user && user.password == params.password) {
-            flash.message = "Welcome to test.com"
+
+            flash.message  = "Welcome to test.com"
             userName = user.fName
             admin = user.admin
             redirect(action: 'dashBoard', params: [name: userName])
+
         } else {
             flash.message = "Username or Password is invalid"
             redirect(action: 'login')
@@ -216,8 +211,8 @@ class PageController {
      * new subject save in database
      */
     def sendQuestions() {
-        int questionIndex = params.count.toInteger()
-        def data = ["key": questions[questionIndex]] as JSON
+        int questionIndex   = params.count.toInteger()
+        def data            = ["key": questions[questionIndex]] as JSON
         render data
     }
 
@@ -225,13 +220,13 @@ class PageController {
      * display all details of subject and send json format
      */
     def displayAllSubject(){
-        def subjectDetails = Subject.getAll()
-        def data = subjectDetails.collect{
-            [ID:it.id,
-             Subject:it.subjectName,
-             dateCreated:it.dateCreated.dateString,
-             lastUpdated:it.lastUpdated.dateString,
-             Total_questions:it.questions.size()]
+        def subjectDetails  = Subject.getAll()
+        def data            = subjectDetails.collect{
+            [ID                 :it.id,
+             Subject            :it.subjectName,
+             dateCreated        :it.dateCreated.dateString,
+             lastUpdated        :it.lastUpdated.dateString,
+             Total_questions    :it.questions.size()]
         }
         render data as JSON
     }
@@ -240,16 +235,16 @@ class PageController {
      * Update the subject
      */
     def updateSubject(){
-        long id =  params.ID.toInteger()
-
-        Subject subject = Subject.findById(id)
+        long id             =  params.ID.toInteger()
+        Subject subject     = Subject.findById(id)
         subject.subjectName = params.Subject
+
         subject.save(flush: true,failOnError: true)
-        def data = [ID:subject.id,
-             Subject:subject.subjectName,
-             dateCreated:subject.dateCreated.dateString,
-             lastUpdated:subject.lastUpdated.dateString,
-             Total_questions:subject.questions.size()]
+        def data            = [ID              :subject.id,
+                               Subject         :subject.subjectName,
+                               dateCreated     :subject.dateCreated.dateString,
+                               lastUpdated     :subject.lastUpdated.dateString,
+                               Total_questions :subject.questions.size()]
         render data as JSON
     }
 
@@ -257,10 +252,11 @@ class PageController {
      * Delete Subject
      */
     def deletedSubject() {
-        long id =  params.ID.toInteger()
-        Subject subject = Subject.findById(id)
+        long id           =  params.ID.toInteger()
+        Subject subject   = Subject.findById(id)
+
         subject.delete(flush: true,failOnError: true)
-        def data = [OK:"Success"]
+        def data          = [OK:"Success"]
         render data as JSON
     }
 }

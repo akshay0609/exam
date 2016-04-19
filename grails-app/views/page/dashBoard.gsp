@@ -120,16 +120,18 @@
     <!-- ******************************* -->
     <div class="row">
         <div class="col s6 m3 l3">
-            <div class="card z-depth-1">
-                <div class="row">
-                    <div class="col s5">
-                        <img class="responsive-img" src="<%=request.contextPath %>/images/HTML5_logo.png" width="100px" height="100px">
-                    </div>
-                    <div class="col s6 ">
-                        <span>Professionals took this test and scored an average of 74%</span>
+            <g:link controller="page" action="home" params="[subjectName:'HTML']">
+                <div class="card z-depth-1">
+                    <div class="row">
+                        <div class="col s5">
+                            <img class="responsive-img" src="<%=request.contextPath %>/images/HTML5_logo.png" width="100px" height="100px">
+                        </div>
+                        <div class="col s6 ">
+                            <span>Professionals took this test and scored an average of 74%</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </g:link>
         </div>
         <div class="col s6 m3 l3">
             <div class="card z-depth-1">
@@ -186,18 +188,18 @@
             </div>
         </div>
         <div class="col s6 m3 l3">
-            <a href="home">
-                <div class="card z-depth-1">
-                    <div class="row">
-                        <div class="col s5">
-                            <img class="responsive-img" src="<%=request.contextPath %>/images/Ruby-on-Rails.png" width="100px" height="100px">
-                        </div>
-                        <div class="col s6 ">
-                            <span>Professionals took this test and scored an average of 74%</span>
+                <g:link controller="page" action="home" params="[subjectName:'Ruby on Rails']">
+                    <div class="card z-depth-1">
+                        <div class="row">
+                            <div class="col s5">
+                                <img class="responsive-img" src="<%=request.contextPath %>/images/Ruby-on-Rails.png" width="100px" height="100px">
+                            </div>
+                            <div class="col s6 ">
+                                <span>Professionals took this test and scored an average of 74%</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </g:link>
         </div>
         <div class="col s6 m3 l3">
             <div class="card z-depth-1">
@@ -228,8 +230,12 @@
     <!-- ******************************* -->
     <!-- Table History -->
     <!-- ******************************* -->
-        <h4  class="flow-text center-align" id="detail_history"><span>Detail History of Test</span></h4>
-        <div id="jsGrid" class="jsgrid center z-depth-3" style="position: relative; height: 90%; width: 100%;"></div>
+        <div class="row">
+            <div class="s12 m6 l6">
+                <h4  class="flow-text center-align" id="detail_history"><span>Detail History of Test</span></h4>
+                <div id="jsGrid" class="jsgrid center z-depth-3" style="position: relative; height: 90%; width: 100%;"></div>
+            </div>
+        </div>
     </div><!-- container -->
 </body>
 </html>
