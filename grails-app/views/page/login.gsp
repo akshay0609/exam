@@ -14,7 +14,7 @@
 
 <body>
     <link rel="stylesheet" type="text/css" href="<%=request.contextPath%>/css/login.css">
-    <meta name="google-signin-client_id" content="376348951406-noo2ek0lk9sjvr8e1g3qt3i3fp6vkjbq.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="">
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <script src="<%=request.contextPath %>/js/login.js"></script>
 
