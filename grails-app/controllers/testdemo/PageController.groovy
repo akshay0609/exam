@@ -19,11 +19,20 @@ class PageController {
     def admin           = false
 
     def index(){}
-    def login() {}
-    def homePage() {}
     def demo() {}
 
+    def homePage() {
+        return [params: [name: null, admin: admin]]
+    }
+
+    def login() {
+        return [params: [name: null, admin: admin]]
+    }
+
     def createSubject(){
+       def clientID = "376348951406-noo2ek0lk9sjvr8e1g3qt3i3fp6vkjbq.apps.googleusercontent.com"
+       def clientSecret = "Wi4vuqNgQuZJdA4WSUf5sNEP"
+
        return [params: [name: userName, admin:admin]]
     }
 
@@ -91,7 +100,6 @@ class PageController {
         int sum                     =  userAnswer.values().sum()
         float percentage            = (sum/10)*100
 
-        /*Count for correct and wrong answers*/
         int correctAnswerCount      = userAnswer.values().count {it==1}
         int wrongAnswerCount        = userAnswer.values().count {it==0}
 
@@ -145,13 +153,25 @@ class PageController {
      * Create new user
      */
     def createUser() {
-         def user = new User(fName: params.first_name,lName: params.last_name,userName: params.uname,email: params.cemail,password: params.cpassword)
+        println (params)
+         def user = new User(fName      : params.first_name,
+                             lName      : params.last_name,
+                             userName   : params.uname,
+                             email      : params.cemail,
+                             password   : params.cpassword)
+
          if(user.save()) {
+             print("!111111111111111111111111")
              flash.message = "Account Successfully Created"
+             userName = user.fName
+             admin = user.admin
+             redirect(action: 'dashBoard', params: [name: userName])
          } else {
+             print("!1111111222222222222222222221111")
              flash.message = "Account Already Exist"
+             redirect(action: 'dashBoard')
          }
-        redirect(action: 'login')
+
     }
 
     /**
@@ -185,7 +205,13 @@ class PageController {
      */
     def saveQuestion() {
         def subject = Subject.findBySubjectName(params.subjectName)
-        def question = new Question(question:params.question, option1:params.option1, option2: params.option2, option3:params.option3, option4:params.option4, answerOption: params.answer, subject: subject)
+        def question = new Question(question    :params.question,
+                                    option1     :params.option1,
+                                    option2     : params.option2,
+                                    option3     :params.option3,
+                                    option4     :params.option4,
+                                    answerOption: params.answer,
+                                    subject     : subject)
         if (subject && question.save()) {
             flash.message = "Successfully stored"
         } else {

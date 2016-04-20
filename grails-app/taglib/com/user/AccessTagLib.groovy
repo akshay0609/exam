@@ -11,7 +11,7 @@ class AccessTagLib {
 
     def adminAccess(userAdmin){
         StringBuilder sb = new StringBuilder()
-        if (userAdmin != null) {
+        if (userAdmin != false) {
             sb <<  """
                         <li>
                             <a href="createQuestion" class="authentication" style="display:none">

@@ -34,7 +34,7 @@
     color: red;
 }
 
-.question_body {
+.question_body {class: "btn"
     margin: 3%;
 }
 

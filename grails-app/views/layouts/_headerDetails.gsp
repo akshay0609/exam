@@ -28,7 +28,8 @@
                                 <i class="material-icons left">receipt</i>Test
                             </a>
                         </li>
-                        <%if(params.admin == true) { %>
+                        <test:accessControl userAdmin="${params.admin}"></test:accessControl>
+                        %{--<%if(params.admin == true) { %>
                             <li>
                                 <a href="createQuestion" class="authentication" style="display:none">
                                     <i class="material-icons left">mode_edit</i>Create New Questions
@@ -39,7 +40,7 @@
                                     <i class="material-icons left">subject</i>Add Subject
                                 </a>
                             </li>
-                        <%}%>
+                        <%}%>--}%
                         <li>
                             <a href="" data-activates="user" class="waves-effect waves-teal dropdown-button authentication" style="display:none">
                                 <i class="material-icons left">perm_identity</i>Hi <span id="userName">${params.name}</span>
@@ -75,7 +76,8 @@
                         <li class="flow-text white-text center-align">
                             <span >Hi ${params.name}</span>
                         </li>
-                        <% if("${params.name}" == null){%>
+                        <li><div class="divider"></div></li>
+                        <% if("${params.name}" == "null"){%>
                             <li>
                                 <a href="homePage" class="waves-effect waves-teal white-text flow-text">
                                     <i class="material-icons left">dashboard</i>Home

@@ -13,6 +13,10 @@
 </head>
 
 <body>
+    <link rel="stylesheet" type="text/css" href="<%=request.contextPath%>/css/login.css">
+    <meta name="google-signin-client_id" content="376348951406-noo2ek0lk9sjvr8e1g3qt3i3fp6vkjbq.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <script src="<%=request.contextPath %>/js/login.js"></script>
 
     <div class="container">
         <g:render template="flash_message"/>
@@ -94,16 +98,20 @@
                             <label for="user_password">Password</label>
                         </div>
 
-                        <button type="submit"  id="submit1" class="waves-effect darken-3 col s12 m9 l9 offset-l2 offset-m2 z-depth-2 center btn blue lighten-1">Login
+                        <button type="submit" id="submit1" class="waves-effect darken-3 col s12 m9 l9 offset-l2 offset-m2 z-depth-2 center btn blue lighten-1">Login
                             <i class="material-icons right">send</i>
                         </button>
                     </form>
+                    <div class="divider"></div>
+                    <div id="my-signin2"></div>
                 </div>
             </div><!-- end login form -->
+
          </div> <!-- end row -->
     </div> <!-- end container-->
 
-<script src="<%=request.contextPath %>/js/formValidation.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <script src="<%=request.contextPath %>/js/formValidation.js"></script>
 
 
 </body>
