@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b454056c-2961-46af-952b-e9440be41267" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Config.class" afterPath="$PROJECT_DIR$/target/classes/Config.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/testdemo/PageController$_displayAllSubject_closure6.class" afterPath="$PROJECT_DIR$/target/classes/testdemo/PageController$_displayAllSubject_closure6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/testdemo/PageController$_initializeQuestions_closure1.class" afterPath="$PROJECT_DIR$/target/classes/testdemo/PageController$_initializeQuestions_closure1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/testdemo/PageController$_jsGrid_closure5.class" afterPath="$PROJECT_DIR$/target/classes/testdemo/PageController$_jsGrid_closure5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/testdemo/PageController$_result_details_closure2.class" afterPath="$PROJECT_DIR$/target/classes/testdemo/PageController$_result_details_closure2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/testdemo/PageController$_result_details_closure3.class" afterPath="$PROJECT_DIR$/target/classes/testdemo/PageController$_result_details_closure3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/testdemo/PageController$_result_details_closure4.class" afterPath="$PROJECT_DIR$/target/classes/testdemo/PageController$_result_details_closure4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/testdemo/PageController.class" afterPath="$PROJECT_DIR$/target/classes/testdemo/PageController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/userInfo/User$__clinit__closure1.class" afterPath="$PROJECT_DIR$/target/classes/com/userInfo/User$__clinit__closure1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/userInfo/User$__clinit__closure2.class" afterPath="$PROJECT_DIR$/target/classes/com/userInfo/User$__clinit__closure2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/userInfo/User.class" afterPath="$PROJECT_DIR$/target/classes/com/userInfo/User.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/Config.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/Config.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/testdemo/PageController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/testdemo/PageController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/com/userInfo/User.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/com/userInfo/User.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/page/_flash_message.gsp" afterPath="$PROJECT_DIR$/grails-app/views/page/_flash_message.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/layouts/_headerDetails.gsp" afterPath="$PROJECT_DIR$/grails-app/views/layouts/_headerDetails.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/custom.js" afterPath="$PROJECT_DIR$/web-app/js/custom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/page/login.gsp" afterPath="$PROJECT_DIR$/grails-app/views/page/login.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/login.js" afterPath="$PROJECT_DIR$/web-app/js/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/stacktrace.log" afterPath="$PROJECT_DIR$/target/stacktrace.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="b454056c-2961-46af-952b-e9440be41267" name="Default" comment="" />
     <ignored path="testDemo.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -711,12 +689,12 @@
       <workItem from="1461037425247" duration="20693000" />
       <workItem from="1461123991342" duration="12212000" />
       <workItem from="1461210427075" duration="24607000" />
-      <workItem from="1461297680991" duration="27457000" />
+      <workItem from="1461297680991" duration="27646000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="345418000" />
+    <option name="totallyTimeSpent" value="345607000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="28" width="1922" height="1019" extended-state="6" />
