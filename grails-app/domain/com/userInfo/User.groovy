@@ -1,5 +1,6 @@
 package com.userInfo
 
+import com.images.Image
 import com.result.Result
 
 class User {
@@ -12,6 +13,7 @@ class User {
     Date dateCreated
     Date lastUpdated
 
+    static hasOne = [image:Image]
     static hasMany = [results:Result]
 
     static mapping = {

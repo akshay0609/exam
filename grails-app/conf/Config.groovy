@@ -115,3 +115,7 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+grails.gorm.failOnError = true
+//grails.gorm.flush = true
+

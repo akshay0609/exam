@@ -2,9 +2,16 @@ package testdemo
 
 import com.exam.Question
 import com.exam.Subject
+import com.images.Image
 import com.result.Result
 import com.userInfo.User
 import grails.converters.JSON
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.MultipartHttpServletRequest
+
+import java.io.*;
+import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
 
 
 class PageController {
@@ -17,6 +24,7 @@ class PageController {
     def userName        = "Akshay"
     def subject         = ""
     def admin           = false
+    int team            = 0
 
     def index(){}
     def demo() {}
@@ -30,9 +38,6 @@ class PageController {
     }
 
     def createSubject(){
-       def clientID = "376348951406-noo2ek0lk9sjvr8e1g3qt3i3fp6vkjbq.apps.googleusercontent.com"
-       def clientSecret = "Wi4vuqNgQuZJdA4WSUf5sNEP"
-
        return [params: [name: userName, admin:admin]]
     }
 
@@ -153,45 +158,66 @@ class PageController {
      * Create new user
      */
     def createUser() {
-        println (params)
-         def user = new User(fName      : params.first_name,
-                             lName      : params.last_name,
-                             userName   : params.uname,
-                             email      : params.cemail,
-                             password   : params.cpassword)
 
-         if(user.save()) {
-             print("!111111111111111111111111")
-             flash.message = "Account Successfully Created"
-             userName = user.fName
-             admin = user.admin
-             redirect(action: 'dashBoard', params: [name: userName])
-         } else {
-             print("!1111111222222222222222222221111")
-             flash.message = "Account Already Exist"
-             redirect(action: 'dashBoard')
-         }
+        println "******" + request + "******"
 
+        try {
+            User user = new User(fName      : params.first_name,
+                                 lName      : params.last_name,
+                                 userName   : params.uname,
+                                 email      : params.cemail,
+                                 password   : params.cpassword)
+
+            Image image = convertFileToByte(request)
+            user.image = image
+
+            println("1111111111")
+
+             if(user.validate() && user.save(flush: true)) {
+                 flash.message  = "Welcome to test.com"
+                 userName = user.fName
+                 admin = user.admin
+                 redirect(action: 'dashBoard', params: [name: userName])
+                 def data = [success:"Operation successfully done", userName:user.userName, password:user.password]
+                 render data as JSON
+             } else {
+    //             flash.message  = "user already exists"
+    //             redirect(action: 'login')
+                 render "user already exists"
+             }
+        } catch (Exception e) {
+            render "error on server side"
+        }
     }
 
     /**
      * Check authorize user
      */
     def accountValidation() {
-        def user = User.findByUserName(params.username)
-        if ( user && user.password == params.password) {
+        try {
+            User user = User.findByUserName(params.username)
 
-            flash.message  = "Welcome to test.com"
-            userName = user.fName
-            admin = user.admin
-            redirect(action: 'dashBoard', params: [name: userName])
+            if (user == null) {
+                user = User.findByEmail(params.username)
+            }
+            if (user && user.password == params.password) {
+                flash.message = "Welcome to test.com"
+                userName = user.fName
+                admin = user.admin
+                redirect(action: 'dashBoard', params: [name: userName])
 
-        } else {
-            flash.message = "Username or Password is invalid"
-            redirect(action: 'login')
+            } else {
+                if(team != 5) {
+                    flash.message = "Username or Password is invalid"
+                    redirect(action: 'login')
+                    team ++;
+                }
+            }
+        } catch (Exception e) {
+            println(user.errors)
+            print(e.message)
         }
     }
-
     /**
      * Create new question only access for admin
      */
@@ -284,5 +310,53 @@ class PageController {
         subject.delete(flush: true,failOnError: true)
         def data          = [OK:"Success"]
         render data as JSON
+    }
+
+    def editProfile() {
+
+    }
+
+    def dummy(){
+        println "******" + request + "******"
+        println(params.uploadfile.inspect())
+
+        def image = convertFileToByte(request)
+        convertByteToImage(image.byteArray,image.fileName )
+
+        render "dummy"
+    }
+
+    def convertFileToByte(def request) {
+        if (request instanceof MultipartHttpServletRequest) {
+
+            MultipartFile file = request.getFile('uploadfile')
+            byte[] byteArray = file.getBytes();
+            def fileName = file.getOriginalFilename();
+
+            def dot = fileName.lastIndexOf(".")                                     // find value till '.'
+            def extension = fileName[dot +  1..fileName.length() - 1]                // copy extension
+
+            Image image
+            /*Save into image table*/
+            try{
+                image = new Image(imageName: fileName, imageType:extension ,imageBytes:byteArray)
+                image.save(flush: true)
+            } catch (Exception e){
+                print(e.message)
+            }
+            image
+        }
+    }
+
+    def convertByteToImage(def imageByteArray, def extension){
+        try{
+            def byteStream = new ByteArrayInputStream(imageByteArray);
+            BufferedImage bImageFromConvert = ImageIO.read(byteStream);
+
+            ImageIO.write(bImageFromConvert, extension, new File(
+                    "grails-app/assets/images/temp." + extension));
+        } catch (Exception e) {
+            print(e.message)
+        }
     }
 }

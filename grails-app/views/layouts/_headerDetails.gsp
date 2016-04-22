@@ -29,18 +29,6 @@
                             </a>
                         </li>
                         <test:accessControl userAdmin="${params.admin}"></test:accessControl>
-                        %{--<%if(params.admin == true) { %>
-                            <li>
-                                <a href="createQuestion" class="authentication" style="display:none">
-                                    <i class="material-icons left">mode_edit</i>Create New Questions
-                                </a>
-                            </li>
-                            <li>
-                                <a href="createSubject" class="authentication" style="display:none">
-                                    <i class="material-icons left">subject</i>Add Subject
-                                </a>
-                            </li>
-                        <%}%>--}%
                         <li>
                             <a href="" data-activates="user" class="waves-effect waves-teal dropdown-button authentication" style="display:none">
                                 <i class="material-icons left">perm_identity</i>Hi <span id="userName">${params.name}</span>
@@ -52,7 +40,7 @@
                     <!-- User sub menu -->
                     <!-- ******************************* -->
                     <ul class="right dropdown-content" id="user">
-                        <li><a href="login" class="white-text center brown darken-4">Logout</a> </li>
+                        <li><a href="login" class="white-text center brown darken-4 logout">Logout</a> </li>
                     </ul>
 
                     <!-- ******************************* -->
@@ -111,8 +99,8 @@
                         <%}%>
                         <li><div class="divider"></div></li>
                         <li>
-                            <a href="login" class="waves-effect waves-teal flow-text white-text authentication" style="display:none">
-                                <i class="material-icons left">settings_power</i> Log out
+                            <a href="login" class="waves-effect waves-teal flow-text white-text authentication logout" style="display:none">
+                                <i class="material-icons left">settings_power</i> Logout
                             </a>
                         </li>
                     </ul>
